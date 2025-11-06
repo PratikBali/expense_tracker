@@ -4,21 +4,131 @@ alwaysApply: true
 
 # Cursor Rules for Expense Tracker Project
 
+## 🎯 IMPORTANT: Always Follow These Rules
+
+**These rules must be followed at all times. The user expects these conventions to be respected automatically.**
+
+---
+
 ## File Organization Rules
 
 ### AI-Generated Files
-- Always move AI-generated test files, temporary files, and experimental code that are not actively used in the workspace to the `ai/` folder
-- This includes files like test scripts, connection testers, debugging scripts, and other temporary AI-generated code
-- Only keep AI-generated files in the main workspace if they are actively integrated into the application
+- **ALWAYS** move AI-generated test files, temporary files, and experimental code to the `ai/` folder
+- This includes:
+  - Test scripts (test-*.js, *-test.js)
+  - Connection testers
+  - Debugging scripts
+  - Helper/utility scripts not part of core application
+  - Firebase setup/fix scripts
+  - Environment validation scripts
+  - Any other temporary AI-generated code
+- **ONLY** keep AI-generated files in the main workspace if they are actively integrated into the application
 
-### Markdown Files
-- Do not create or add `*.md` files outside the `ai/` folder
-- All documentation, notes, and markdown files should be placed inside the `ai/` folder
-- Exception: `README.md` in the root directory is allowed if explicitly requested by the user
+### Markdown Documentation Files
 
-### Cleanup
-- After completing tasks that generate temporary or test files, clean them up by moving them to the `ai/` folder
-- Keep the workspace organized and free of unused AI-generated artifacts
+#### **STRICT RULE: No .md Files in Root (except README.md)**
 
-## User Preferences
-- Do not use hardcoded user-facing text; prefer internationalization or configuration-based text management
+- **DO NOT** create or add `*.md` files in the root project directory
+- **ALWAYS** place ALL documentation files inside the `ai/` folder
+- This includes:
+  - Setup guides (FIREBASE_SETUP.md, FIREBASE_CREDENTIALS_GUIDE.md, etc.)
+  - Testing guides (TESTING_GUIDE.md)
+  - Feature documentation (FEATURES.md)
+  - Deployment guides (DEPLOYMENT.md)
+  - Summary reports (SUCCESS_REPORT.md, PROJECT_SUMMARY.md)
+  - Quick start guides (QUICK_START_*.md)
+  - Troubleshooting guides
+  - Migration documentation
+  - Any other .md files
+
+#### **Exception:**
+- `README.md` in the root directory is the ONLY allowed markdown file outside `ai/` folder
+- When linking to documentation from README.md, use relative paths: `[Guide](./ai/GUIDE_NAME.md)`
+
+### Firebase Documentation Approach
+
+When creating Firebase-related documentation:
+1. Create all .md files directly in `ai/` folder (e.g., `ai/FIREBASE_SETUP.md`)
+2. Update README.md to reference them with `./ai/` prefix
+3. Never create guides in root and then move them - create directly in `ai/`
+
+### Cleanup Protocol
+
+- After completing tasks that generate files:
+  1. Move temporary scripts to `ai/` folder
+  2. Move all documentation to `ai/` folder
+  3. Verify root directory only contains README.md
+  4. Update any links in README.md to point to `ai/` folder
+
+---
+
+## Code Standards
+
+### User-Facing Text
+- **DO NOT** use hardcoded user-facing text
+- **ALWAYS** prefer internationalization (i18n) or configuration-based text management
+- Use translation keys in components
+- Define text in `client/src/i18n/locales/` files
+
+### Currency
+- Project uses Indian Rupee (₹) as the default currency
+- Currency symbol: Use ₹ (not $)
+- Currency code: INR (not USD)
+- Custom RupeeIcon component available at `client/src/components/RupeeIcon.jsx`
+
+### Database
+- **Current:** Firebase Firestore (not MongoDB)
+- Service layer pattern:
+  - `server/services/userService.js` for user operations
+  - `server/services/expenseService.js` for expense operations
+- Authentication: Use file-based (`GOOGLE_APPLICATION_CREDENTIALS`) or env variable (`FIREBASE_SERVICE_ACCOUNT`)
+
+---
+
+## Project-Specific Preferences
+
+### Authentication
+- Google OAuth via Passport.js
+- JWT tokens for session management
+- Firebase Admin SDK for Firestore access
+
+### Deployment
+- Backend: Supports Render, Railway, Vercel
+- Frontend: Supports Vercel, Netlify
+- Database: Firebase Firestore (cloud-hosted)
+
+### Environment Variables
+- Keep sensitive data in `.env` files
+- Never commit `.env` or service account keys
+- Use `.env.example` for templates
+
+---
+
+## Documentation Updates
+
+When creating new features or fixing issues:
+1. Create documentation in `ai/` folder
+2. Update README.md with links to new docs
+3. Use descriptive filenames (e.g., `FIREBASE_SETUP.md`, not `setup.md`)
+4. Include clear section headers and examples
+
+---
+
+## Summary
+
+✅ **DO:**
+- Create all .md docs in `ai/` folder
+- Move temporary scripts to `ai/` folder
+- Use i18n for user-facing text
+- Follow Firebase Firestore patterns
+- Keep root directory clean
+
+❌ **DON'T:**
+- Create .md files in root (except README.md)
+- Leave temporary files in workspace
+- Hardcode user-facing text
+- Reference old MongoDB code
+
+---
+
+**These rules ensure a clean, organized, and maintainable project structure.**

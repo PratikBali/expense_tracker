@@ -10,6 +10,11 @@ server/node_modules/
 client/.env
 server/.env
 
+# Firebase service account keys
+**/firebase-key.json
+**/*-firebase-adminsdk-*.json
+server/firebase-*.json
+
 # AI helper tools (optional - can keep or ignore)
 # ai/
 
@@ -38,3 +43,5 @@ Thumbs.db
 # Testing
 coverage/
 
+/.history
+/ai

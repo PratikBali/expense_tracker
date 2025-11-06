@@ -46,13 +46,13 @@ function Statistics() {
     name: t(`categories.${item._id}`),
     value: item.total,
     count: item.count,
-  }))
+  })) || []
 
   const monthlyData = stats.monthlyTrend?.map((item) => ({
-    month: `${item._id.year}-${String(item._id.month).padStart(2, '0')}`,
+    month: item.month,
     total: item.total,
     count: item.count,
-  }))
+  })) || []
 
   return (
     <div className="max-w-7xl mx-auto space-y-8">

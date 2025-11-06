@@ -81,6 +81,41 @@ function Layout({ children }) {
               )
             })}
           </nav>
+          {/* Mobile user info and logout */}
+          <div className="p-4 border-t">
+            <div className="flex items-center mb-4">
+              {user?.avatar && (
+                <img
+                  src={user.avatar}
+                  alt={user.name}
+                  className="h-10 w-10 rounded-full mr-3"
+                />
+              )}
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-gray-900 truncate">
+                  {user?.name}
+                </p>
+                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+              </div>
+            </div>
+            <button
+              onClick={toggleLanguage}
+              className="w-full mb-2 btn btn-secondary flex items-center justify-center"
+            >
+              <FiGlobe className="mr-2" />
+              {i18n.language.toUpperCase()}
+            </button>
+            <button
+              onClick={() => {
+                setSidebarOpen(false)
+                handleLogout()
+              }}
+              className="w-full btn btn-primary flex items-center justify-center"
+            >
+              <FiLogOut className="mr-2" />
+              {t('auth.logout')}
+            </button>
+          </div>
         </div>
       </div>
 

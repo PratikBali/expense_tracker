@@ -2,18 +2,18 @@
 
 A modern, full-stack expense tracking application with React, Redux Toolkit, Firebase Firestore, and Google authentication. Track your expenses in Indian Rupees (₹).
 
-> **🎯 New to this project?** Start with [QUICKSTART.md](./QUICKSTART.md) for a 5-minute setup guide!
+> **🎯 New to this project?** Start with [ai/QUICK_START_FIREBASE.md](./ai/QUICK_START_FIREBASE.md) for a 5-minute setup guide!
 
 ## 📚 Documentation
 
-- **[QUICK_START_FIREBASE.md](./QUICK_START_FIREBASE.md)** - Get running in 5 minutes! ⚡🔥
-- **[FIREBASE_MIGRATION_COMPLETE.md](./FIREBASE_MIGRATION_COMPLETE.md)** - Migration summary 📋
-- **[FIREBASE_SETUP.md](./FIREBASE_SETUP.md)** - Firebase Firestore setup guide 🔥
-- **[TESTING_GUIDE.md](./TESTING_GUIDE.md)** - Complete testing checklist ✅
-- **[SETUP.md](./SETUP.md)** - Detailed local development setup 🛠️
-- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Production deployment guide 🚀
-- **[FEATURES.md](./FEATURES.md)** - Complete feature list ✨
-- **[PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md)** - Technical overview 📊
+- **[ai/QUICK_START_FIREBASE.md](./ai/QUICK_START_FIREBASE.md)** - Get running in 5 minutes! ⚡🔥
+- **[ai/FIREBASE_MIGRATION_COMPLETE.md](./ai/FIREBASE_MIGRATION_COMPLETE.md)** - Migration summary 📋
+- **[ai/FIREBASE_SETUP.md](./ai/FIREBASE_SETUP.md)** - Firebase Firestore setup guide 🔥
+- **[ai/TESTING_GUIDE.md](./ai/TESTING_GUIDE.md)** - Complete testing checklist ✅
+- **[ai/SETUP.md](./ai/SETUP.md)** - Detailed local development setup 🛠️
+- **[ai/DEPLOYMENT.md](./ai/DEPLOYMENT.md)** - Production deployment guide 🚀
+- **[ai/FEATURES.md](./ai/FEATURES.md)** - Complete feature list ✨
+- **[ai/PROJECT_SUMMARY.md](./ai/PROJECT_SUMMARY.md)** - Technical overview 📊
 
 ---
 
@@ -133,6 +133,16 @@ VITE_GOOGLE_CLIENT_ID=your_google_client_id
 
 
 ## 🏃 Running Locally
+
+### **Quick Start (Windows)**
+
+```bash
+start-app.bat
+```
+
+This will test Firebase connection and start both servers.
+
+### **Manual Start**
 
 ```bash
 # Test Firebase connection first
