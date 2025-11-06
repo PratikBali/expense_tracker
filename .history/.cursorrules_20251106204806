@@ -1,0 +1,21 @@
+# Cursor Rules for Expense Tracker Project
+
+## File Organization Rules
+
+### AI-Generated Files
+- Always move AI-generated test files, temporary files, and experimental code that are not actively used in the workspace to the `ai/` folder
+- This includes files like test scripts, connection testers, debugging scripts, and other temporary AI-generated code
+- Only keep AI-generated files in the main workspace if they are actively integrated into the application
+
+### Markdown Files
+- Do not create or add `*.md` files outside the `ai/` folder
+- All documentation, notes, and markdown files should be placed inside the `ai/` folder
+- Exception: `README.md` in the root directory is allowed if explicitly requested by the user
+
+### Cleanup
+- After completing tasks that generate temporary or test files, clean them up by moving them to the `ai/` folder
+- Keep the workspace organized and free of unused AI-generated artifacts
+
+## User Preferences
+- Do not use hardcoded user-facing text; prefer internationalization or configuration-based text management
+

@@ -1,0 +1,8 @@
+{
+  "name": "expense-tracker-ai-tools",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AI helper tools for Expense Tracker",
+  "private": true
+}
+
