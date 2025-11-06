@@ -20,8 +20,24 @@ export const initializeFirebase = () => {
 
     let app;
 
-    // Priority 1: Use service account if provided (production/secure)
-    if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+    // Priority 1: Use Base64 encoded service account (best for env vars)
+    if (process.env.FIREBASE_SERVICE_ACCOUNT_BASE64) {
+      try {
+        const base64Credentials = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
+        const jsonString = Buffer.from(base64Credentials, 'base64').toString('utf8');
+        const serviceAccount = JSON.parse(jsonString);
+        console.log('🔐 Using Base64 encoded service account credentials');
+        app = initializeApp({
+          credential: cert(serviceAccount),
+          projectId: projectId,
+        });
+      } catch (error) {
+        console.error('❌ Failed to decode Base64 service account:', error.message);
+        throw new Error('Invalid FIREBASE_SERVICE_ACCOUNT_BASE64');
+      }
+    }
+    // Priority 2: Use JSON service account (if properly formatted)
+    else if (process.env.FIREBASE_SERVICE_ACCOUNT) {
       try {
         const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
         console.log('🔐 Using service account credentials');
@@ -31,25 +47,26 @@ export const initializeFirebase = () => {
         });
       } catch (error) {
         console.error('❌ Failed to parse service account:', error.message);
+        console.error('💡 Try using FIREBASE_SERVICE_ACCOUNT_BASE64 instead (see USE_ENV_VAR_SETUP.md)');
         throw new Error('Invalid FIREBASE_SERVICE_ACCOUNT JSON');
       }
     }
-    // Priority 2: Use emulator for local development (no credentials needed)
+    // Priority 3: Use file-based credentials (GOOGLE_APPLICATION_CREDENTIALS)
+    else if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+      console.log('🔐 Using file-based credentials (GOOGLE_APPLICATION_CREDENTIALS)');
+      app = initializeApp({
+        credential: applicationDefault(),
+        projectId: projectId,
+      });
+    }
+    // Priority 4: Use emulator for local development (no credentials needed)
     else if (process.env.FIRESTORE_EMULATOR_HOST) {
       console.log('🧪 Using Firestore Emulator:', process.env.FIRESTORE_EMULATOR_HOST);
       app = initializeApp({
         projectId: projectId,
       });
     }
-    // Priority 3: Try application default credentials (requires gcloud SDK)
-    else if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-      console.log('🔐 Using Application Default Credentials');
-      app = initializeApp({
-        credential: applicationDefault(),
-        projectId: projectId,
-      });
-    }
-    // Priority 4: Development mode with warning
+    // Priority 5: Development mode with warning
     else {
       console.warn('⚠️  WARNING: No Firebase credentials found!');
       console.warn('⚠️  For production, you MUST provide credentials.');
