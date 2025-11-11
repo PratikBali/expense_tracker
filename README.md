@@ -7,11 +7,13 @@ A modern, full-stack expense tracking application with React, Redux Toolkit, Fir
 ## 📚 Documentation
 
 - **[ai/QUICK_START_FIREBASE.md](./ai/QUICK_START_FIREBASE.md)** - Get running in 5 minutes! ⚡🔥
+- **[ai/DEPLOYMENT_QUICK_START.md](./ai/DEPLOYMENT_QUICK_START.md)** - 5-minute Google Cloud deployment! 🚀⚡
+- **[ai/GOOGLE_CLOUD_DEPLOYMENT.md](./ai/GOOGLE_CLOUD_DEPLOYMENT.md)** - Complete Google Cloud + Firebase deployment guide 🌐
 - **[ai/FIREBASE_MIGRATION_COMPLETE.md](./ai/FIREBASE_MIGRATION_COMPLETE.md)** - Migration summary 📋
 - **[ai/FIREBASE_SETUP.md](./ai/FIREBASE_SETUP.md)** - Firebase Firestore setup guide 🔥
 - **[ai/TESTING_GUIDE.md](./ai/TESTING_GUIDE.md)** - Complete testing checklist ✅
 - **[ai/SETUP.md](./ai/SETUP.md)** - Detailed local development setup 🛠️
-- **[ai/DEPLOYMENT.md](./ai/DEPLOYMENT.md)** - Production deployment guide 🚀
+- **[ai/DEPLOYMENT.md](./ai/DEPLOYMENT.md)** - Alternative deployment options 🚀
 - **[ai/FEATURES.md](./ai/FEATURES.md)** - Complete feature list ✨
 - **[ai/PROJECT_SUMMARY.md](./ai/PROJECT_SUMMARY.md)** - Technical overview 📊
 
@@ -160,7 +162,42 @@ npm run server
 
 ## 🌐 Deployment
 
-### Deploy Backend to Render
+### 🚀 Recommended: Google Cloud + Firebase (100% Free!)
+
+Deploy everything to Google's infrastructure:
+
+**🔥 Quick Deploy (5 minutes):**
+
+```bash
+# 1. Deploy Backend to Cloud Run
+cd server
+gcloud run deploy expense-tracker-api --source . --region us-central1
+
+# 2. Deploy Frontend to Firebase Hosting
+cd ../client && npm run build && cd ..
+firebase deploy --only hosting
+```
+
+**Or use the automated script:**
+```bash
+deploy.bat  # Windows
+```
+
+**📚 Full Guide:** See [ai/DEPLOYMENT_QUICK_START.md](./ai/DEPLOYMENT_QUICK_START.md) or [ai/GOOGLE_CLOUD_DEPLOYMENT.md](./ai/GOOGLE_CLOUD_DEPLOYMENT.md)
+
+**Why Google Cloud?**
+- ✅ Backend & Database in same ecosystem
+- ✅ No cold starts (Cloud Run is fast!)
+- ✅ Generous free tier (2M requests/month)
+- ✅ Global CDN included
+- ✅ Automatic SSL certificates
+- ✅ Easy CI/CD with Cloud Build
+
+---
+
+### Alternative: Deploy to Render + Vercel
+
+#### Deploy Backend to Render
 
 1. Push code to GitHub
 2. Go to [Render](https://render.com)
@@ -169,18 +206,10 @@ npm run server
 5. Configure:
    - Build Command: `cd server && npm install`
    - Start Command: `cd server && npm start`
-6. Add environment variables:
-   - `FIREBASE_PROJECT_ID` (from Firebase Console)
-   - `JWT_SECRET`
-   - `GOOGLE_CLIENT_ID`
-   - `GOOGLE_CLIENT_SECRET`
-   - `CLIENT_URL` (your frontend URL)
-   - `NODE_ENV=production`
+6. Add environment variables (see [ai/DEPLOYMENT.md](./ai/DEPLOYMENT.md))
 7. Deploy!
 
-**Note:** Firebase works without IP whitelisting - just set the project ID!
-
-### Deploy Frontend to Vercel
+#### Deploy Frontend to Vercel
 
 1. Go to [Vercel](https://vercel.com)
 2. Import your GitHub repository
@@ -190,20 +219,21 @@ npm run server
    - Build Command: `npm run build`
    - Output Directory: `dist`
 4. Add environment variables from client/.env
-5. Update `VITE_API_URL` to your Render backend URL
-6. Deploy!
+5. Deploy!
 
-### Alternative Free Platforms
+### Other Free Platforms
 
 **Backend:**
+- Google Cloud Run (Recommended!)
 - Railway.app
 - Fly.io
-- Cyclic.sh
+- Render
 
 **Frontend:**
+- Firebase Hosting (Recommended!)
+- Vercel
 - Netlify
 - Cloudflare Pages
-- GitHub Pages
 
 ## 📱 Usage
 
