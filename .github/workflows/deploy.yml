@@ -50,7 +50,7 @@ jobs:
           FIREBASE_PROJECT_ID: flash-chat-c195c
         run: |
           if [ -z "$JWT_SECRET" ] || [ -z "$GOOGLE_CLIENT_ID" ] || [ -z "$GOOGLE_CLIENT_SECRET" ]; then
-            echo "Missing required secrets: JWT_SECRET / GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET"
+            echo "::error::Missing required secrets: JWT_SECRET / GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET"
             exit 1
           fi
 
@@ -70,7 +70,7 @@ jobs:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FLASH_CHAT_C195C }}
         run: |
           if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then
-            echo "Missing required secret: FIREBASE_SERVICE_ACCOUNT_FLASH_CHAT_C195C"
+            echo "::error::Missing required secret: FIREBASE_SERVICE_ACCOUNT_FLASH_CHAT_C195C"
             exit 1
           fi
           printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$HOME/firebase-service-account.json"
