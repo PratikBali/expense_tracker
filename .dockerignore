@@ -1,0 +1,17 @@
+**/node_modules
+**/dist
+**/.git
+**/.github
+**/.env
+**/.env.*
+**/*.md
+ai/**
+server/firebase-key.json
+server/*.json.bak
+server/test-*.js
+server/fix-*.js
+server/convert-*.js
+server/encode-*.js
+server/setup-*.js
+server/validate-env.js
+

@@ -9,6 +9,7 @@ server/node_modules/
 .env.production
 client/.env
 server/.env
+functions/.env
 
 # Firebase service account keys
 **/firebase-key.json
@@ -22,6 +23,9 @@ server/firebase-*.json
 dist/
 client/dist/
 build/
+
+# Firebase local state
+.firebase/
 
 # Logs
 logs
