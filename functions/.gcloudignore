@@ -1,0 +1,13 @@
+# Ignore dependencies and common noise
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Ignore VCS metadata
+.git
+.gitignore
+
+# Ignore Firebase local state
+.firebase
+
+# Keep .env (created in CI) so dotenv can load runtime secrets
