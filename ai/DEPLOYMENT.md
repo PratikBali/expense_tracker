@@ -5,26 +5,22 @@ This guide will help you deploy your Expense Tracker app to free platforms.
 ## 📋 Prerequisites
 
 1. **GitHub Account** - Push your code to GitHub
-2. **MongoDB Atlas Account** - Free tier database
+2. **Firebase Account** - Firestore + service account credentials
 3. **Google OAuth Credentials** - For authentication
 4. **Vercel/Netlify Account** - For frontend
 5. **Render/Railway Account** - For backend
 
 ---
 
-## 1️⃣ Setup MongoDB Atlas (Free)
+## 1️⃣ Setup Firebase Firestore (Free)
 
-1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-2. Create a free account and cluster
-3. Click **"Connect"** → **"Connect your application"**
-4. Copy your connection string
-5. Replace `<password>` with your database user password
-6. Add `/expense-tracker` before the `?` in the connection string
-
-Example: `mongodb+srv://user:password@cluster.mongodb.net/expense-tracker?retryWrites=true&w=majority`
-
-**Network Access:**
-- Go to Network Access → Add IP Address → Allow Access from Anywhere (0.0.0.0/0)
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Create a new project
+3. Enable **Firestore Database** (start in test mode)
+4. Go to **Project Settings** → **Service accounts**
+5. Click **"Generate new private key"** and download the JSON
+6. Copy your **Project ID** (for `FIREBASE_PROJECT_ID`)
+7. Base64-encode the JSON for `FIREBASE_SERVICE_ACCOUNT_BASE64`
 
 ---
 
@@ -67,13 +63,15 @@ Example: `mongodb+srv://user:password@cluster.mongodb.net/expense-tracker?retryW
 5. Add Environment Variables:
    ```
    NODE_ENV=production
-   PORT=5000
-   MONGODB_URI=your_mongodb_connection_string
+   FIREBASE_PROJECT_ID=your_firebase_project_id
+   FIREBASE_SERVICE_ACCOUNT_BASE64=your_base64_service_account_json
+   FIREBASE_SERVICE_ACCOUNT=optional_raw_json_if_not_using_base64
    JWT_SECRET=your_random_secret_min_32_chars
    GOOGLE_CLIENT_ID=your_google_client_id
    GOOGLE_CLIENT_SECRET=your_google_client_secret
    CLIENT_URL=https://your-frontend-url.vercel.app
    ```
+   **Note:** Render sets `PORT` automatically. Do not override it.
 
 6. Click **"Create Web Service"**
 7. Wait for deployment (first deploy takes 5-10 minutes)
@@ -84,7 +82,7 @@ Example: `mongodb+srv://user:password@cluster.mongodb.net/expense-tracker?retryW
 1. Push `server/render.yaml` to your repository
 2. Go to Render Dashboard → **"New"** → **"Blueprint"**
 3. Connect repository and select `server/render.yaml`
-4. Add environment variables as above
+4. Add environment variables as above (Firebase + OAuth)
 
 **Note:** Free tier sleeps after 15 minutes of inactivity. First request after sleep takes 30-60 seconds.
 
@@ -198,11 +196,12 @@ This ensures OAuth redirects work correctly.
 **"Application Error"**
 - Check Render/Railway logs
 - Verify all environment variables are set
-- Ensure MongoDB connection string is correct
+- Ensure Firebase credentials are valid (`FIREBASE_SERVICE_ACCOUNT_BASE64`)
+- Confirm `FIREBASE_PROJECT_ID` matches your Firebase project
 
 **"502 Bad Gateway"**
 - Backend is starting up (wait 30-60s on free tier)
-- Check if MongoDB Atlas allows connections from anywhere
+- Confirm the service is listening on Render's assigned port (do not set `PORT`)
 
 ### Frontend Issues
 
@@ -218,9 +217,9 @@ This ensures OAuth redirects work correctly.
 
 ### Database Issues
 
-**"MongoServerError: Authentication failed"**
-- Verify database user credentials in connection string
-- Check Network Access whitelist in MongoDB Atlas
+**"FirebaseAppError: Failed to parse service account"**
+- Verify `FIREBASE_SERVICE_ACCOUNT_BASE64` is valid base64 JSON
+- Regenerate the service account key and re-encode it
 
 ---
 
@@ -232,7 +231,7 @@ This ensures OAuth redirects work correctly.
 | **Frontend (Netlify)** | 100GB bandwidth/month |
 | **Backend (Render)** | 750 hours/month (sleeps after 15min) |
 | **Backend (Railway)** | $5 credit/month (enough for small apps) |
-| **Database (MongoDB Atlas)** | 512MB storage, shared cluster |
+| **Database (Firebase Firestore)** | Generous free tier (read/write limits) |
 | **Google OAuth** | Free |
 
 **Total: $0/month** ✅
@@ -267,7 +266,7 @@ If you encounter issues:
 1. Check platform status pages
 2. Review deployment logs
 3. Test locally first with production environment variables
-4. Check MongoDB Atlas metrics
+4. Check Firebase project metrics and Firestore usage
 5. Verify Google OAuth configuration
 
 ---
